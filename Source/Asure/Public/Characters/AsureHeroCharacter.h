@@ -9,6 +9,9 @@
 
 class 	USpringArmComponent;
 class 	UCameraComponent;
+class   UMyDataAsset_InputConfig;
+struct  FInputActionValue;
+	
 /**
  * 
  */
@@ -21,6 +24,7 @@ public:
 
 
 protected:
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 private:
@@ -32,4 +36,13 @@ private:
 	UCameraComponent* FollowCamera;
 
 #pragma endregion
+
+#pragma region Input
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
+	UMyDataAsset_InputConfig* InputConfigDataAsset;
+	void Input_Move(const FInputActionValue& InputActionValue);
+	void Input_Look(const FInputActionValue& InputActionValue);
+
+#pragma endregion
+
 };
