@@ -31,15 +31,9 @@ AAsureHeroCharacter::AAsureHeroCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f); // Rotate at this rate
-	GetCharacterMovement()->JumpZVelocity = 600.f; // Jump height
-	GetCharacterMovement()->AirControl = 0.2f; // Control in air
-	GetCharacterMovement()->GravityScale = 2.0f; // Increase gravity for a more realistic feel
-	GetCharacterMovement()->MaxWalkSpeed = 600.f; // Walking speed
-	GetCharacterMovement()->MaxWalkSpeedCrouched = 300.f; // Crouching speed
-	GetCharacterMovement()->MaxAcceleration = 2048.f; // Acceleration speed
-	GetCharacterMovement()->BrakingDecelerationWalking = 2048.f; // Deceleration when stopping
-	GetCharacterMovement()->GroundFriction = 2.0f; // Friction on the ground
-}
+	GetCharacterMovement()->MaxWalkSpeed = 400.f; // Walking speed
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Deceleration when stopping
+	}
 
 void AAsureHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -89,6 +83,6 @@ void AAsureHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 	}
 	if (LookAxisVector.Y != 0.f)
 	{
-		AddControllerPitchInput(LookAxisVector.Y);
+		AddControllerPitchInput(-LookAxisVector.Y);
 	}
 }
