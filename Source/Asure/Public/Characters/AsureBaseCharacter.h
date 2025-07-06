@@ -10,6 +10,7 @@
 
 class UWarriorAbilitySystemComponent;
 class UWarriorAttributeSet;
+class UDataAsset_StartUPDataBase;
 
 UCLASS()
 class ASURE_API AAsureBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -38,6 +39,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AttributeSet")
 	UWarriorAttributeSet* WarriorAttributeSet;
 #pragma endregion
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
+	//创建软指针对象
+	TSoftObjectPtr<UDataAsset_StartUPDataBase> CharacterStartUPData;
 
 public:
 

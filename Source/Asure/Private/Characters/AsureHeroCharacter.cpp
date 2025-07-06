@@ -10,6 +10,7 @@
 #include "Components/Inputs/WarriorEnhancedInputComponent.h"
 #include "WarriorGameplayTags.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "MyDataAssets/StartUpData/DataAsset_HeroStartUPData.h"
 #include "AsureDebugHelper.h"
 
 AAsureHeroCharacter::AAsureHeroCharacter()
@@ -36,15 +37,26 @@ AAsureHeroCharacter::AAsureHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Deceleration when stopping
 	}
 
+
+//加载数据资产
 void AAsureHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+
+
+	/*if (WarriorAbilitySystemComponent && WarriorAttributeSet)
 	{	
 		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, AvatarActor: %s"), *WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
 		Debug::print(TEXT("Ability System Component is valid") + ASCText, FColor::Green);
 		Debug::print(TEXT("AttributeSet is valid") + ASCText, FColor::Green);
 
+	}*/
+	//同步加载启动数据
+	if (!CharacterStartUPData.IsNull()) {
+		if (UDataAsset_StartUPDataBase* LoadedData = CharacterStartUPData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
 	}
 }
 

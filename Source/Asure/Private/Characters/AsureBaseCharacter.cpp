@@ -32,5 +32,8 @@ void AAsureBaseCharacter::PossessedBy(AController* NewController)
 	if (WarriorAbilitySystemComponent)
 	{
 		WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	/*	ensure(!CharacterStartUPData.IsNull());*/
+		ensureMsgf(!CharacterStartUPData.IsNull(), TEXT("忘记分配初始数据给：%s"), *GetName());
+
 	}
 }
