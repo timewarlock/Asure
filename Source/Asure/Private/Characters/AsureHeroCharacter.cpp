@@ -9,6 +9,7 @@
 #include "MyDataAssets/Input/MyDataAsset_InputConfig.h"
 #include "Components/Inputs/WarriorEnhancedInputComponent.h"
 #include "WarriorGameplayTags.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AsureDebugHelper.h"
 
 AAsureHeroCharacter::AAsureHeroCharacter()
@@ -35,6 +36,18 @@ AAsureHeroCharacter::AAsureHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Deceleration when stopping
 	}
 
+void AAsureHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{	
+		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, AvatarActor: %s"), *WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+		Debug::print(TEXT("Ability System Component is valid") + ASCText, FColor::Green);
+		Debug::print(TEXT("AttributeSet is valid") + ASCText, FColor::Green);
+
+	}
+}
+
 void AAsureHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
@@ -55,7 +68,7 @@ void AAsureHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 void AAsureHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	Debug::print(TEXT("working"), FColor::Green, 0);
+	//Debug::print(TEXT("working"), FColor::Green, 0);
 }
 
 void AAsureHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
