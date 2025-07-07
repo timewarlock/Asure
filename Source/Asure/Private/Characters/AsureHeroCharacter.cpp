@@ -11,6 +11,7 @@
 #include "WarriorGameplayTags.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "MyDataAssets/StartUpData/DataAsset_HeroStartUPData.h"
+#include "Components/Combat/HeroCombatComponent.h"
 #include "AsureDebugHelper.h"
 
 AAsureHeroCharacter::AAsureHeroCharacter()
@@ -35,6 +36,8 @@ AAsureHeroCharacter::AAsureHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f); // Rotate at this rate
 	GetCharacterMovement()->MaxWalkSpeed = 400.f; // Walking speed
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Deceleration when stopping
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 	}
 
 
