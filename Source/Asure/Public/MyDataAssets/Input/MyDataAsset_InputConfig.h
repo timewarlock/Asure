@@ -21,8 +21,13 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Category = "InputTag"))
 	FGameplayTag InputTag;
 	// 输入动作名称
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputAction* InputAction;
+
+	bool IsValid() const
+	{
+		return InputTag.IsValid() && InputAction;
+	}
 
 };
 /**
@@ -39,6 +44,11 @@ public:
 	//将动作名称作为数组的行名称
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty= "InputTag"))
 	TArray<FWarriorInputActionConfig> NativeInputActions;
+
+
 	//创建辅助函数 返回输入动作
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty= "InputTag"))
+	TArray<FWarriorInputActionConfig> AbilityInputActions;
 };
